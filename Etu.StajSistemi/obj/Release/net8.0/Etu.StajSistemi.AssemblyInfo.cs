@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Etu.StajSistemi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ec356b93f35544348e714f933a7e2bd9d9d4cd2a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Etu.StajSistemi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Etu.StajSistemi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
