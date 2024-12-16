@@ -1,0 +1,15 @@
+﻿@page "/kurum/onayla/{id}"
+@using Etu.StajSistemi.Entities
+@using Etu.StajSistemi.Pages.Components.StajBasvuruViewComponent
+@using Etu.StajSistemi.Permissions
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.OpenApi.Extensions
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Alert
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Blockquote
+@using Volo.Abp.AspNetCore.Mvc.UI.Bundling.TagHelpers
+@model Etu.StajSistemi.Pages.Kurum.Onayla
+@attribute [IgnoreAntiforgeryToken]
+@attribute [Authorize(StajSistemiPermissions.OgrenciStajBasvurusus.KurumOnayla)]
+
+@await Component.InvokeAsync(typeof(StajBasvuruViewComponent), new { Id = Model.Id, Reference = Reference.KurumOnay })

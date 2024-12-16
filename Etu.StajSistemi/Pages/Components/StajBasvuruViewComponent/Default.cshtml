@@ -1,0 +1,756 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using Etu.StajSistemi.Entities
+@using Etu.StajSistemi.Pages.Components.StajBasvuruViewComponent
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.OpenApi.Extensions
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Alert
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Blockquote
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form.DatePicker
+@using Volo.Abp.AspNetCore.Mvc.UI.Bundling.TagHelpers
+@model Etu.StajSistemi.Pages.Components.StajBasvuruViewComponent.StajBasvuruViewComponentModel
+
+
+<style>
+    .sr {
+        max-width: 1000px;
+    }
+
+    .image-preview {
+        width: 200px;
+        height: 200px;
+        border: 2px dashed #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background-color: #f9f9f9;
+        margin-bottom: 10px;
+    }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .image-preview p {
+            margin: 0;
+            color: #666;
+        }
+</style>
+
+
+@if (Model.Reference == Reference.Create)
+{
+    <form method="post" enctype="multipart/form-data">
+        @{
+            await RenderAll();
+        }
+        <!-- Gönderme Butonu -->
+        <div class="text-center mt-4 mb-4">
+            <button type="submit" class="btn btn-secondary">Gönder</button>
+        </div>
+    </form>
+}
+else
+{
+    await RenderAll();
+}
+
+@{
+    async Task RenderAll()
+    {
+        <div>
+            <div class="container mt-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="text-center mb-4">ERZURUM TEKNİK ÜNİVERSİTESİ / Mühendislik ve Mimarlık Fakültesi</h3>
+                        <h3 class="text-center mb-4">ZORUNLU STAJ FORMU</h3>
+                        <h4 class="text-center mb-4">İLGİLİ MAKAMA</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="card p-4">
+                            <p class="mb-4">
+                                Aşağıda kimlik bilgileri yazılı öğrencimizin toplam 60 gün staj yapma zorunluluğu vardır.
+                                Öğrencimizin, kurum/kuruluşunuzda yapmak istediği
+                                <input type="text" asp-for="Input.GunSayisi" value="@Model.OgrenciStajBasvurusu.GunSayisi" disabled="@(Model.Reference != Reference.Create)"
+                                       class="form-control d-inline w-auto" style="width: 100px;"
+                                       placeholder="Gün Sayısı"> gün staj talebinin uygun bulunup-bulunmadığının, formda 3.Bölüm
+                                bilgileri ve onayı ile belirtilmesini arz/rica eder, göstereceğiniz ilgiye teşekkür ederim.
+                            </p>
+
+                            @if (Model.Reference == Reference.Create)
+                            {
+                                <!-- Bölüm Başkanı -->
+                                <div class="mb-3">
+                                    <label for="departmentHeadName" class="form-label">Bölüm Başkanı Adı Soyadı:</label>
+                                    <input type="text" class="form-control" id="departmentHeadName" asp-for="Input.BolumBaskaniAdiSoyadi"
+                                           placeholder="Bölüm Başkanı Adı Soyadı">
+                                </div>
+                            }
+                            else
+                            {
+                                <!-- Bölüm Başkanı -->
+                                <div class="mb-3">
+                                    <label for="departmentHeadName" class="form-label">Bölüm Başkanı Adı Soyadı:</label>
+                                    <input type="text" class="form-control" id="departmentHeadName" asp-for="OgrenciStajBasvurusu.BolumBaskaniAdiSoyadi" disabled="disabled"
+                                           placeholder="Bölüm Başkanı Adı Soyadı">
+                                </div>
+                            }
+
+                            @if (Model.Reference == Reference.BolumBaskaniOnay)
+                            {
+                                <form method="post" enctype="multipart/form-data">
+                                    <!-- İmza Alanı -->
+                                    <div class="mb-3">
+                                        <label for="signature" class="form-label">Bölüm Başkanı İmzası:</label>
+                                        <input type="file" class="form-control" id="signature" onchange="previewSignature()" asp-for="Imza">
+                                        <div class="image-preview">
+                                            <img id="signaturePreview" src="#" alt="Preview">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!-- Gönderme Butonu -->
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-secondary">Gönder</button>
+                                    </div>
+                                </form>
+                            }
+                            else
+                            {
+                                <!-- İmza Alanı -->
+                                <div class="mb-3">
+                                    <label for="signature" class="form-label">Bölüm Başkanı İmzası:</label>
+                                    <div class="image-preview">
+                                        <img id="signaturePreview" src="/api/app/ogrenci-staj-basvurusus/@Model.Id/bolum-baskani-onayi" alt="Preview">
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="startDate" class="form-label">Onay Tarihi:</label>
+                                    <input type="text" class="form-control" id="startDate" disabled="disabled" asp-for="OgrenciStajBasvurusu.BolumBaskaniOnayTarihi">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- İkinci Panel -->
+                <div class="panel panel-default mt-4">
+                    <div class="panel-heading">
+                        <h4 id="a">1) ÖĞRENCİ KİMLİK BİLGİLERİ (Öğrenci tarafından eksiksiz doldurulmalıdır)</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="card p-4">
+                            <div class="mb-3">
+                                <label for="studentName" class="form-label">Adı ve Soyadı:</label>
+                                <input type="text" class="form-control" id="studentName" placeholder="Adı ve Soyadı" disabled="@(Model.Reference != Reference.Create)" asp-for="Input.OgrenciAdiSoyadi" value="@Model.OgrenciStajBasvurusu.OgrenciAdiSoyadi">
+                            </div>
+                            <div class="mb-3">
+                                <label for="studentID" class="form-label">Öğrenci No:</label>
+                                <input type="text" class="form-control" id="studentID" placeholder="Öğrenci No" disabled="@(Model.Reference != Reference.Create)" asp-for="Input.OgrenciNo" value="@Model.OgrenciStajBasvurusu.OgrenciNo">
+                            </div>
+                            <div class="mb-3">
+                                <label for="department" class="form-label">Bölümü:</label>
+                                <input type="text" class="form-control" id="department" placeholder="Bölümü" disabled="@(Model.Reference != Reference.Create)" asp-for="Input.OgrenciBolumu" value="@Model.OgrenciStajBasvurusu.OgrenciBolumu">
+                            </div>
+                            <div class="mb-3">
+                                <label for="academicYear" class="form-label">Öğretim Yılı:</label>
+                                <input type="text" class="form-control" id="academicYear" placeholder="Öğretim Yılı" disabled="@(Model.Reference != Reference.Create)" asp-for="Input.OgrenciOgretimYili" value="@Model.OgrenciStajBasvurusu.OgrenciOgretimYili">
+                            </div>
+                            <div class="mb-3">
+                                <label for="tel" class="form-label">Tel:</label>
+                                <input type="text" class="form-control" id="tel" placeholder="Tel" disabled="@(Model.Reference != Reference.Create)" asp-for="Input.OgrenciTelefonNo" value="@Model.OgrenciStajBasvurusu.OgrenciTelefonNo">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-Posta:</label>
+                                <input type="text" class="form-control" id="email" placeholder="E-Posta" disabled="@(Model.Reference != Reference.Create)" asp-for="Input.OgrenciEposta" value="@Model.OgrenciStajBasvurusu.OgrenciEposta">
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">İkametgâh Adresi:</label>
+                                <textarea class="form-control" id="address" rows="3" disabled="@(Model.Reference != Reference.Create)" asp-for="Input.OgrenciAdresi"
+                                          placeholder="İkametgâh Adresi">
+                                    @Model.OgrenciStajBasvurusu.OgrenciAdresi
+        </textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="vesikalik" class="form-label">Vesikalık:</label>
+                                @if (Model.Reference == Reference.Create)
+                                {
+                                    <input type="file" class="form-control" id="vesikalik" onchange="previewVesikalik()" asp-for="Input.OgrenciVesikalikFile">
+                                }
+                                <div class="image-preview">
+                                    <img id="vesikalikPreview" src="/api/app/ogrenci-staj-basvurusus/@Model.Id/ogrenci-vesikalik" alt="Preview">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Üçüncü Panel -->
+                <div class="panel panel-default mt-4">
+                    <div class="panel-heading">
+                        <h4 id="a">2) STAJ YAPILACAK KURUM/KURULUŞUN (Öğrenci tarafından eksiksiz doldurulmalıdır)</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="card p-4">
+                            <div class="mb-3">
+                                <label for="companyName" class="form-label">Adı: </label>
+                                <input type="text" class="form-control" id="companyName" placeholder="Kurum/Kuruluş Adı" disabled="@(Model.Reference != Reference.Create)" asp-for="Input.KurulusAdi" value="@Model.OgrenciStajBasvurusu.KurulusAdi">
+                            </div>
+                            <div class="mb-3">
+                                <label for="companyTel" class="form-label">Tel:</label>
+                                <input type="text" class="form-control" id="companyTel" placeholder="Kurum/Kuruluş Telefonu" disabled="@(Model.Reference != Reference.Create)" asp-for="Input.KurulusTelefonNo" value="@Model.OgrenciStajBasvurusu.KurulusTelefonNo">
+                            </div>
+                            <div class="mb-3">
+                                <label for="companyAddress" class="form-label">Adresi:</label>
+                                <textarea class="form-control" id="companyAddress" rows="3" disabled="@(Model.Reference != Reference.Create)" asp-for="Input.KurulusAdresi"
+                                          placeholder="Kurum/Kuruluş Adresi">
+                                    @Model.OgrenciStajBasvurusu.KurulusAdresi
+        </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dördüncü Panel -->
+                <div class="panel panel-default mt-4">
+                    <div class="panel-heading">
+                        <h4 id="a">3) STAJ YERİ YETKİLİSİNİN (Staj yapılacak kurum/kuruluş yetkilisi tarafından eksiksiz doldurulmalı ve onaylanmalıdır)</h4>
+                    </div>
+                    @if (Model.Reference == Reference.KurumOnay)
+                    {
+                        <form method="post" enctype="multipart/form-data">
+                            @{
+                                await RenderStajYetkilisiAlani();
+                            }
+                            <!-- Gönderme Butonu -->
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-secondary">Gönder</button>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        await RenderStajYetkilisiAlani();
+                    }
+                    @{
+                        async Task RenderStajYetkilisiAlani()
+                        {
+                            <div class="panel-body">
+                                <div class="card p-4">
+                                    <div class="mb-3">
+                                        <label for="supervisorName" class="form-label">Adı ve Soyadı:</label>
+                                        <input type="text" class="form-control" id="supervisorName" placeholder="Yetkili Adı ve Soyadı" disabled="@(Model.Reference != Reference.KurumOnay)" asp-for="Onay.YetkiliAdiSoyadi" value="@Model.OgrenciStajBasvurusu.StajYeriYetkilisiAdiSoyadi">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="position" class="form-label">Görev ve Unvanı:</label>
+                                        <input type="text" class="form-control" id="position" placeholder="Görev ve Unvanı" disabled="@(Model.Reference != Reference.KurumOnay)" asp-for="Onay.YetkiliGorevVeUnvani" value="@Model.OgrenciStajBasvurusu.StajYeriYetkilisiGorevVeUnvani">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="supervisorEmail" class="form-label">E-Posta Adresi:</label>
+                                        <input type="email" class="form-control" id="supervisorEmail" placeholder="E-Posta Adresi" disabled="@(Model.Reference != Reference.KurumOnay)" asp-for="Onay.YetkiliEpostaAdresi" value="@Model.OgrenciStajBasvurusu.StajYeriYetkilisiEpostaAdresi">
+                                    </div>
+                                    <div class="mb-3" abp-if="@(Model.Reference != Reference.KurumOnay)">
+                                        <label for="date" class="form-label">Onay Tarihi:</label>
+                                        <input type="text" class="form-control" id="date" value="@Model.OgrenciStajBasvurusu.StajYeriYetkilisiOnayTarihi" disabled="disabled">
+                                    </div>
+                                    <div class="mb-3 form-check" abp-if="@(Model.Reference != Reference.KurumOnay)">
+                                        <input type="checkbox" class="form-check-input" id="approvalCheck" disabled="@(Model.Reference != Reference.KurumOnay)" checked="@(!Model.OgrenciStajBasvurusu.StajYeriYetkilisiImzaFileName.IsNullOrWhiteSpace())">
+                                        <label class="form-check-label" for="approvalCheck">Kurumumuzda / İşletmemizde staj yapması uygundur.</label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="stamp" class="form-label">Kaşe/İmza:</label>
+                                        @if (Model.Reference == Reference.KurumOnay)
+                                        {
+                                            <input type="file" class="form-control" id="stamp" onchange="previewImage()" asp-for="Onay.Imza" disabled="@(Model.Reference != Reference.KurumOnay)">
+                                        }
+                                        <div class="image-preview">
+                                            <img id="stampPreview" src="/api/app/ogrenci-staj-basvurusus/@Model.Id/staj-yeri-yetkilisi-imza" alt="Preview">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <!-- Beşinci Panel -->
+                <div class="panel panel-default mt-4">
+                    <div class="panel-heading">
+                        <h4 id="a">4) STAJ TARİHLERİ (Öğrenci tarafından eksiksiz doldurulmalıdır)</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="card p-4">
+                            @if (Model.Reference == Reference.Create)
+                            {
+                                <abp-date-range-picker label="Staj Tarihi" asp-for-start="Input.OgrenciStajBaslamaTarihi" asp-for-end="Input.OgrenciStajBitisTarihi" is-iso="true"></abp-date-range-picker>
+                            }
+                            else
+                            {
+                                <abp-date-range-picker label="Staj Tarihi" asp-for-start="OgrenciStajBasvurusu.OgrenciStajBaslamaTarihi" asp-for-end="OgrenciStajBasvurusu.OgrenciStajBitisTarihi" is-iso="true" disabled="true"></abp-date-range-picker>
+                            }
+                            <div class="mb-3">
+                                <label for="duration" class="form-label">Süresi (Staj Günü):</label>
+                                <input type="number" class="form-control" id="duration" placeholder="Staj Süresi" asp-for="Input.GunSayisi" value="@Model.OgrenciStajBasvurusu.GunSayisi" disabled="@(Model.Reference != Reference.Create)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Altıncı Panel -->
+                <div class="panel panel-default mt-4">
+                    <div class="panel-heading">
+                        <h4 id="a">5) ÖĞRENCİNİN NÜFUS KAYIT ve SİGORTA BİLGİLERİ (Öğrenci tarafından eksiksiz doldurulmalıdır)</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="card p-4">
+                            <div class="mb-3">
+                                <label for="studentFirstName" class="form-label">Adı:</label>
+                                <input type="text" class="form-control" id="studentFirstName" placeholder="Adı" asp-for="Input.OgrenciAdi" value="@Model.OgrenciStajBasvurusu.OgrenciAdi" disabled="@(Model.Reference != Reference.Create)">
+                            </div>
+                            <div class="mb-3">
+                                <label for="studentLastName" class="form-label">Soyadı:</label>
+                                <input type="text" class="form-control" id="studentLastName" placeholder="Soyadı" asp-for="Input.OgrenciSoyadi" value="@Model.OgrenciStajBasvurusu.OgrenciSoyadi" disabled="@(Model.Reference != Reference.Create)">
+                            </div>
+                            <div class="mb-3">
+                                <label for="tcKimlikNo" class="form-label">T.C. Kimlik No:</label>
+                                <input type="number" class="form-control" id="tcKimlikNo" placeholder="T.C. Kimlik No" asp-for="Input.OgrenciTcKimlikNo" value="@Model.OgrenciStajBasvurusu.OgrenciTcKimlikNo" disabled="@(Model.Reference != Reference.Create)">
+                            </div>
+                            <div class="mb-3">
+                                <label for="fatherName" class="form-label">Baba Adı:</label>
+                                <input type="text" class="form-control" id="fatherName" placeholder="Baba Adı" asp-for="Input.OgrenciBabaAdi" value="@Model.OgrenciStajBasvurusu.OgrenciBabaAdi" disabled="@(Model.Reference != Reference.Create)">
+                            </div>
+                            <div class="mb-3">
+                                <label for="motherName" class="form-label">Ana Adı:</label>
+                                <input type="text" class="form-control" id="motherName" placeholder="Ana Adı" asp-for="Input.OgrenciAnaAdi" value="@Model.OgrenciStajBasvurusu.OgrenciAnaAdi" disabled="@(Model.Reference != Reference.Create)">
+                            </div>
+                            <div class="mb-3">
+                                <label for="birthPlace" class="form-label">Doğum Yeri:</label>
+                                <input type="text" class="form-control" id="birthPlace" placeholder="Doğum Yeri" asp-for="Input.OgrenciDogumYeri" value="@Model.OgrenciStajBasvurusu.OgrenciDogumYeri" disabled="@(Model.Reference != Reference.Create)">
+                            </div>
+                            <div class="mb-3">
+                                <label for="birthDate" class="form-label">Doğum Tarihi:</label>
+                                @if (Model.Reference == Reference.Create)
+                                {
+                                    <abp-date-picker suppress-label="true" asp-for="Input.OgrenciDogumTarihi" is-iso="true"></abp-date-picker>
+                                }
+                                else
+                                {
+                                    <abp-date-picker suppress-label="true" asp-for="OgrenciStajBasvurusu.OgrenciDogumTarihi" is-iso="true" disabled="true"></abp-date-picker>
+                                }
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">SAĞLIK GÜVENCESİ (İşaretleyiniz)</label>
+                                @foreach (OgrenciSaglikGuvencesi insuranceType in Enum.GetValues(typeof(OgrenciSaglikGuvencesi)))
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" asp-for="Input.OgrenciSaglikGuvencesi" checked="@(Model.OgrenciStajBasvurusu.OgrenciSaglikGuvencesi == insuranceType)" value="@insuranceType" id="@insuranceType" disabled="@(Model.Reference != Reference.Create)" />
+                                        <label class="form-check-label" for="@insuranceType">
+                                            @{
+                                                var attribute = insuranceType.GetAttributeOfType<DisplayAttribute>();
+                                                @:@(attribute == null ? insuranceType.ToString() : attribute.Name);
+                                            }
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                            <div class="mb-3">
+                                <label for="sskNo" class="form-label">SSK No (varsa):</label>
+                                <input type="text" class="form-control" id="sskNo" placeholder="SSK No" asp-for="Input.OgrenciSskNo" value="@Model.OgrenciStajBasvurusu.OgrenciSskNo" disabled="@(Model.Reference != Reference.Create)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yedinci Panel -->
+                <div class="panel panel-default mt-4">
+                    <div class="panel-heading">
+                        <h4 id="a">6) Bölüm Staj Komisyonu Başkan Onayı</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="card p-4">
+
+                            @if (Model.Reference == Reference.StajKomisyonuOnay)
+                            {
+                                <form method="post" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <label for="commissionStamp" class="form-label">Kaşe İmza:</label>
+                                        <input type="file" class="form-control" id="commissionStamp" onchange="previewBStajKom()" asp-for="Imza">
+                                        <div class="image-preview">
+                                            <img id="commissionStampPreview" src="/api/app/ogrenci-staj-basvurusus/@Model.Id/bolum-staj-komisyonu-baskan-onayi" alt="Preview">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!-- Gönderme Butonu -->
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-secondary">Gönder</button>
+                                    </div>
+                                </form>
+                            }
+                            else
+                            {
+                                <div class="mb-3">
+                                    <label for="commissionStamp" class="form-label">Kaşe İmza:</label>
+                                    <div class="image-preview">
+                                        <img id="commissionStampPreview" src="/api/app/ogrenci-staj-basvurusus/@Model.Id/bolum-staj-komisyonu-baskan-onayi" alt="Preview">
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="startDate" class="form-label">Onay Tarihi:</label>
+                                    <input type="text" class="form-control" id="startDate" disabled="disabled" asp-for="OgrenciStajBasvurusu.BolumStajKomisyonuBaskanOnayiTarihi">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!-- Sekizinci Panel -->
+                <div class="panel panel-default mt-4">
+                    <div class="panel-heading">
+                        <h4>7) Dekanlık Onayı (Dekan Yardımcısı)</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="card p-4">
+                            @if (Model.Reference == Reference.DekanlikOnay)
+                            {
+                                <form method="post" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <label for="deanStamp" class="form-label">Kaşe İmza:</label>
+                                        <input type="file" class="form-control" id="deanStamp" onchange="previewDekanlik()" asp-for="Imza">
+                                        <div class="image-preview">
+                                            <img id="deanStampPreview" src="/api/app/ogrenci-staj-basvurusus/@Model.Id/dekanlik-onayi" alt="Preview">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!-- Gönderme Butonu -->
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-secondary">Gönder</button>
+                                    </div>
+                                </form>
+                            }
+                            else
+                            {
+                                <div class="mb-3">
+                                    <label for="deanStamp" class="form-label">Kaşe İmza:</label>
+                                    <div class="image-preview">
+                                        <img id="deanStampPreview" src="/api/app/ogrenci-staj-basvurusus/@Model.Id/dekanlik-onayi" alt="Preview">
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="startDate" class="form-label">Onay Tarihi:</label>
+                                    <input type="date" class="form-control" id="startDate" disabled="disabled" asp-for="OgrenciStajBasvurusu.DekanlikOnayTarihi">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dokuzuncu Panel -->
+                <div class="panel panel-default mt-4">
+                    <div class="panel-heading">
+                        <h4 id="a">8) S.K.S. Daire Başkanlığı Onayı</h4>
+                    </div>
+                    <div class="panel-body">
+                        @if (Model.Reference == Reference.SksDaireBaskanligiOnay)
+                        {
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="skdStamp" class="form-label">Kaşe İmza:</label>
+                                    <input type="file" class="form-control" id="skdStamp" onchange="previewSKS()" asp-for="Imza">
+                                    <div class="image-preview">
+                                        <img id="skdStampPreview" src="/api/app/ogrenci-staj-basvurusus/@Model.Id/sks-daire-baskanligi-onayi" alt="Preview">
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <!-- Gönderme Butonu -->
+                                <div class="text-center mt-4">
+                                    <button type="submit" class="btn btn-secondary">Gönder</button>
+                                </div>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="card p-4">
+                                <p>Sosyal Güvenlik Sistemi'nde staja başlama giriş işlemi yapılmıştır.</p>
+
+                                <div class="mb-3">
+                                    <label for="skdStamp" class="form-label">Kaşe İmza:</label>
+                                    <div class="image-preview">
+                                        <img id="skdStampPreview" src="/api/app/ogrenci-staj-basvurusus/@Model.Id/sks-daire-baskanligi-onayi" alt="Preview">
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="startDate" class="form-label">Onay Tarihi:</label>
+                                    <input type="date" class="form-control" id="startDate" disabled="disabled" asp-for="OgrenciStajBasvurusu.SksDaireBaskanligiOnayTarihi">
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- Onuncu Panel -->
+                <div class="panel panel-default mt-4">
+                    <div class="panel-heading">
+                    </div>
+                    <div class="panel-body">
+                        <div class="card p-4">
+                            <p>Bu belge üzerindeki bilgilerin doğru olduğunu beyan ediyor ve yanlış beyan ya da staj yerine gitmeme veya yarıda bırakma gibi durumlarda sigorta işlemleri nedeni ile doğacak yasal para cezasını ödeyeceğimi taahhüt ediyorum. Staj evrakının hazırlanmasını arz ederim.</p>
+                            <div class="mb-3">
+                                <label for="studentNameSignature" class="form-label">Öğrencinin Adı-Soyadı:</label>
+                                <input type="text" class="form-control" id="studentNameSignature" placeholder="Adı ve Soyadı" asp-for="Input.OgrenciAdiSoyadi" value="@Model.OgrenciStajBasvurusu.OgrenciAdiSoyadi" disabled="@(Model.Reference != Reference.Create)">
+                            </div>
+                            <div class="mb-3">
+                                <label for="skdStamp" class="form-label">Kaşe İmza:</label>
+                                @if (Model.Reference == Reference.Create)
+                                {
+                                    <input type="file" class="form-control" id="studentSignature" onchange="prevStudentSignature()" asp-for="Input.OgrenciImzasi">
+                                }
+                                <div class="image-preview">
+                                    <img id="studentSignaturePreview" src="/api/app/ogrenci-staj-basvurusus/@Model.Id/ogrenci-imza" alt="Preview">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Onbirinci Panel -->
+                <div id="a" class="panel panel-default mt-4">
+                    <div class="panel-heading">
+                        <h4>Staj Uygulama Esasları</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="card p-4">
+                            <ul>
+                                <li>Staja devam zorunludur. Geçerli mazeretler nedeniyle devam edilemeyen günler, her bir staj döneminin %20’sinden fazla olmamak kaydıyla telafi edilebilir.</li>
+                                <li>Stajını mazereti dolayısıyla tamamlayamayacağını mazeretinin başlangıcından itibaren 5 (beş) işgünü içinde birimine bildirmeyen öğrenciler için oluşturdukları kamu zararı nedeni ile disiplin soruşturması açılır.</li>
+                                <li>SGK sistemine öğrenciler için bir ayda iki kez veri girişi yapılamayacağından bir öğrenciye aynı ay içerisinde ikinci kez staj yaptırılamaz.</li>
+                                <li>Staj süresinde, resmi tatil günleri sayılmaz ve hafta, kamu kurumlarında 5 iş günü, özel kuruluşlarda Cumartesi çalışılıyor ise 6 gün olarak dikkate alınır.</li>
+                            </ul>
+                            <p>
+                                <strong>NOT: 5510 sayılı yasa gereğince öğrencinin iş kazası ve meslek hastalıkları sigorta primlerini ödeme yükümlüsü Erzurum Teknik Üniversitesi Rektörlüğü’dür.</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        @if (Model.Reference == Reference.ViewOnly)
+        {
+            <div class="text-center mt-4 mb-4" id="print-button">
+                <button type="button" onclick="yazdir()" class="btn btn-secondary">Yazdır</button>
+            </div>
+        }
+    }
+}
+
+
+<script>
+    function yazdir() {
+        $('#print-button').hide();
+        $('nav').hide();
+        window.print();
+        $('#print-button').show();
+        $('nav').show();
+    }
+
+    function previewSignature() {
+        var preview = document.getElementById('signaturePreview');
+        var file = document.getElementById('signature').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+    }
+
+    function previewVesikalik() {
+        var preview = document.getElementById('vesikalikPreview');
+        var file = document.getElementById('vesikalik').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+    }
+
+    function previewImage() {
+        var preview = document.getElementById('stampPreview');
+        var file = document.getElementById('stamp').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+    }
+
+    function previewBStajKom() {
+        var preview = document.getElementById('commissionStampPreview');
+        var file = document.getElementById('commissionStamp').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+    }
+    function previewDekanlik() {
+        var preview = document.getElementById('deanStampPreview');
+        var file = document.getElementById('deanStamp').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+    }
+    function previewSKS() {
+        var preview = document.getElementById('skdStampPreview');
+        var file = document.getElementById('skdStamp').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+    }
+
+    function prevStudentSignature() {
+        var preview = document.getElementById('studentSignaturePreview');
+        var file = document.getElementById('studentSignature').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Tüm input elemanlarını seç
+        var inputs = document.querySelectorAll('input[name]:not([type="radio"]):not([type="checkbox"]), textarea[name], select[name]');
+
+        // sadece görünür olanları al
+        inputs = Array.from(inputs).filter(input => input.offsetParent !== null);
+
+        // input elemanlarını name attribute'una göre grupla
+        const inputGroups = {};
+        inputs.forEach(input => {
+            const name = input.getAttribute('name');
+            if (!inputGroups[name]) {
+                inputGroups[name] = [];
+            }
+            inputGroups[name].push(input);
+        });
+
+        // Her grup için event listener ekle
+        Object.keys(inputGroups).forEach(name => {
+            const group = inputGroups[name];
+            group.forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const newValue = e.target.value;
+                    group.forEach(el => {
+                        if (el !== e.target) {
+                            el.value = newValue;
+                        }
+                    });
+                });
+            });
+        });
+
+
+        document.querySelectorAll(".image-preview img").forEach(img => {
+            if (!img.src) {
+                img.style.display = 'none';
+            }
+
+            // js yuklenmeden once img yuklenmis mi kontrol et
+            if (img.complete) {
+                img.style.display = 'block';
+            }
+
+            // js yuklenmeden once img hatasi olmus mu kontrol et
+            if (img.naturalWidth === 0) {
+                img.style.display = 'none';
+            }
+
+            img.onload = function () {
+                img.style.display = 'block';
+            };
+
+            img.onerror = function () {
+                img.style.display = 'none';
+            };
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Sayfa yüklendiğinde çalışacak kodlar buraya
+        // Belirli bir başlık öncesinde sayfa bölünmesini sağlamak için CSS kullanımı
+        const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6, div');
+        headings.forEach(heading => {
+            // Sadece belirli başlık öncesinde sayfa bölünmesi
+            if (heading.id === 'a') {
+                heading.style.pageBreakBefore = 'always';
+            }
+
+        });
+
+        const allDivs = document.querySelectorAll('div');
+        allDivs.forEach(div => {
+
+            div.classList.add('sr');
+        });
+    });
+
+
+</script>

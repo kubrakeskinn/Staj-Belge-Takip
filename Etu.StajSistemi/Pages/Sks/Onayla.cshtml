@@ -1,0 +1,12 @@
+﻿@page "/sks/onayla/{id}"
+@using Etu.StajSistemi.Entities
+@using Etu.StajSistemi.Pages.Components.StajBasvuruViewComponent
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.OpenApi.Extensions
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Alert
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Blockquote
+@using Volo.Abp.AspNetCore.Mvc.UI.Bundling.TagHelpers
+@model Etu.StajSistemi.Pages.Sks.Onayla
+@attribute [IgnoreAntiforgeryToken]
+
+@await Component.InvokeAsync(typeof(StajBasvuruViewComponent), new { Id = Model.Id, Reference = Reference.SksDaireBaskanligiOnay })

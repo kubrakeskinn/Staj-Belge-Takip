@@ -1,0 +1,5 @@
+﻿@page "/view/{id}"
+@using Etu.StajSistemi.Pages.Components.StajBasvuruViewComponent
+@model Etu.StajSistemi.Pages.View
+
+@await Component.InvokeAsync(typeof(StajBasvuruViewComponent), new { Id = Model.Id, Reference = Reference.ViewOnly })

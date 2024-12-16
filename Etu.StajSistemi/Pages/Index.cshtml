@@ -1,0 +1,42 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Etu.StajSistemi.Localization
+@using Etu.StajSistemi.Menus
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Alert
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Blockquote
+@using Volo.Abp.AspNetCore.Mvc.UI.Bundling.TagHelpers
+@using Volo.Abp.UI.Navigation
+@inject IHtmlLocalizer<StajSistemiResource> L
+@inject IMenuManager MenuManager
+@model Etu.StajSistemi.Pages.IndexModel
+
+@{
+    var menus = await MenuManager.GetAsync(StandardMenus.Main);
+}
+
+@section styles {
+    <abp-style src="/Pages/Index.cshtml.css"/>
+}
+
+@section scripts {
+    <abp-script src="/Pages/Index.cshtml.js"/>
+}
+
+<div class="container" style="margin-top: 200px; ">
+    <div class="card mt-5" style=" backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;">
+        <div class="card-body mt-4">
+            <div class="row d-flex align-items-center justify-content-center">
+                @foreach (var menuItem in menus.Items.Where(x => !x.Url.IsNullOrWhiteSpace() && x.Name != StajSistemiMenus.Home))
+                {
+                    <div class="col-md-auto text-center mb-3">
+                        <a href="@menuItem.Url" class="btn btn-primary btn-lg" role="button">@menuItem.DisplayName</a>
+                    </div>
+                }
+                <div class="col-md-auto text-center">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

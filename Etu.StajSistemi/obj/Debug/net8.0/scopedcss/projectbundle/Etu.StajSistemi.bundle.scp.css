@@ -1,0 +1,15 @@
+/* _content/Etu.StajSistemi/Pages/Index.cshtml.rz.scp.css */
+.navbar[b-k0s6n4iyml] {
+    background: transparent !important;
+}
+
+
+body[b-k0s6n4iyml] {
+    background-image: url('../Account/etu1.jpg'); /* Arka plan resminin yolunu belirtin */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Ekran yüksekliği kadar yapar */
+    margin: 0; /* Sayfanın kenar boşluklarını kaldırır */
+    padding: 0; /* İçerik boşluklarını kaldırır */
+}

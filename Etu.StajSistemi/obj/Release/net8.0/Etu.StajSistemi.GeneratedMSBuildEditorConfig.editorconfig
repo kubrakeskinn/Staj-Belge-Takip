@@ -1,0 +1,131 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Etu.StajSistemi
+build_property.RootNamespace = Etu.StajSistemi
+build_property.ProjectDir = C:\Users\kubra\Desktop\EtuStajSistemi-master\EtuStajSistemi-master\Etu.StajSistemi\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.MSBuildProjectDirectory = C:\Users\kubra\Desktop\EtuStajSistemi-master\EtuStajSistemi-master\Etu.StajSistemi
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/BolumBaskani/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQm9sdW1CYXNrYW5pXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/BolumBaskani/Onayla.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQm9sdW1CYXNrYW5pXE9uYXlsYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/Components/StajBasvuruViewComponent/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xTdGFqQmFzdnVydVZpZXdDb21wb25lbnRcRGVmYXVsdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/Dekanlik/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGVrYW5saWtcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/Dekanlik/Onayla.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGVrYW5saWtcT25heWxhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/Kurum/Onayla.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcS3VydW1cT25heWxhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/OgrenciStajBasvurusus/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT2dyZW5jaVN0YWpCYXN2dXJ1c3VzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/OgrenciStajBasvurusus/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT2dyZW5jaVN0YWpCYXN2dXJ1c3VzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/Sks/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2tzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/Sks/Onayla.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2tzXE9uYXlsYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/StajKomisyonu/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RhaktvbWlzeW9udVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/StajKomisyonu/Onayla.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RhaktvbWlzeW9udVxPbmF5bGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/View.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Themes/Basic/Components/Brand/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VGhlbWVzXEJhc2ljXENvbXBvbmVudHNcQnJhbmRcRGVmYXVsdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Themes/Basic/Components/ContentTitle/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VGhlbWVzXEJhc2ljXENvbXBvbmVudHNcQ29udGVudFRpdGxlXERlZmF1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Themes/Basic/Components/MainNavbar/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VGhlbWVzXEJhc2ljXENvbXBvbmVudHNcTWFpbk5hdmJhclxEZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Themes/Basic/Components/Menu/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VGhlbWVzXEJhc2ljXENvbXBvbmVudHNcTWVudVxEZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Themes/Basic/Components/Menu/_MenuItem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VGhlbWVzXEJhc2ljXENvbXBvbmVudHNcTWVudVxfTWVudUl0ZW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Themes/Basic/Components/PageAlerts/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VGhlbWVzXEJhc2ljXENvbXBvbmVudHNcUGFnZUFsZXJ0c1xEZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Themes/Basic/Components/Toolbar/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VGhlbWVzXEJhc2ljXENvbXBvbmVudHNcVG9vbGJhclxEZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Themes/Basic/Components/Toolbar/LanguageSwitch/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VGhlbWVzXEJhc2ljXENvbXBvbmVudHNcVG9vbGJhclxMYW5ndWFnZVN3aXRjaFxEZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Themes/Basic/Components/Toolbar/UserMenu/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VGhlbWVzXEJhc2ljXENvbXBvbmVudHNcVG9vbGJhclxVc2VyTWVudVxEZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Themes/Basic/Layouts/Account.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VGhlbWVzXEJhc2ljXExheW91dHNcQWNjb3VudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Themes/Basic/Layouts/Application.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VGhlbWVzXEJhc2ljXExheW91dHNcQXBwbGljYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Themes/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = VGhlbWVzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/kubra/Desktop/EtuStajSistemi-master/EtuStajSistemi-master/Etu.StajSistemi/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-k0s6n4iyml

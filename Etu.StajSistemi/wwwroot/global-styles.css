@@ -1,0 +1,72 @@
+/* Your Global Styles */
+
+:root .lpx-brand-logo {
+    --lpx-logo: url('/images/logo/leptonx/logo-light.png');
+    --lpx-logo-icon: url('/images/logo/leptonx/logo-light-thumbnail.png');
+}
+
+.menu-item {
+    list-style: none;
+    margin: 0px 0; /* Adjusted margin */
+    display: flex; /* Flexbox for vertical alignment */
+    align-items: center; /* Center align items vertically */
+
+}
+.navbar .nav-link{
+    font-size: 14px; /* Adjusted font size */
+    font-weight: 600; /* Semi-bold font weight */
+    color: white;
+    text-decoration: none;
+}
+.navbar .nav-item {
+    padding: 0px 16px; /* Padding for clickable area */
+    position: relative; /* Relative positioning for pseudo-element */
+    transition: color 0.3s; /* Transition for color change */
+    display: flex; /* Flexbox for icon and text */
+    align-items: center; /* Center align icon and text */
+}
+
+.navbar .nav-item i {
+    margin-right: 8px; /* Space between icon and text */
+    font-size: 16px; /* Adjust icon size if needed */
+}
+
+.navbar .nav-item::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 4px; /* Height of the "drop" */
+    left: 50%;
+    bottom: -4px; /* Positioned below the text */
+    background-color: #007bff; /* Highlight color */
+    border-radius: 50%; /* Rounded shape */
+    transition: width 0.3s, left 0.3s; /* Transition for the drop effect */
+}
+
+.navbar .nav-item:hover {
+    color: #007bff; /* Change text color on hover */
+}
+
+.navbar .nav-item:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.btn-primary{
+    background-color: #76b5c5 !important;
+    border-color: #76b5c5 !important;
+}
+
+.active .page-link{
+    background-color: #76b5c5 !important;
+    border-color: #76b5c5 !important;
+}
+
+.navbar{
+    background-color: #76b5c5 !important;
+}
+
+.nav-link.active{
+    background-color: #76b5c5 !important;
+    border-color: #76b5c5 !important;
+}

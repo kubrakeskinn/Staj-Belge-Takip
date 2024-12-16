@@ -1,0 +1,222 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Etu.StajSistemi.Menus
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Etu.StajSistemi.Localization
+@inject IHtmlLocalizer<StajSistemiResource> L
+@inject IAuthorizationService Authorization
+@model Etu.StajSistemi.Pages.StajKomisyonu.IndexModel
+@inject IPageLayout PageLayout
+@{
+    PageLayout.Content.Title = L["Öğrenci Staj Başvurusu"].Value;
+    PageLayout.Content.MenuItemName = StajSistemiMenus.StajKomisyonu;
+}
+
+@section styles
+{
+
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/StajKomisyonu/index.js" />
+
+}
+
+
+
+<abp-card>
+    <abp-card-body>
+		<abp-row class="mb-3">
+            <abp-column size-md="_12">
+                <form id="SearchForm" autocomplete="off">
+                    <div class="input-group">
+                        <input class="form-control page-search-filter-text" id="FilterText" placeholder="@L["Search"]"/>
+                        <abp-button button-type="Primary" type="submit" icon="search"/>
+                    </div>
+                </form>
+            </abp-column>
+@*<abp-column size-md="_12" class="mt-3">
+                <a href="javascript:;" id="AdvancedFilterSectionToggler" class="text-decoration-none">@L["SeeAdvancedFilters"]</a>
+            </abp-column>*@
+        </abp-row>
+
+@* <abp-row id="AdvancedFilterSection" style="display: none;">
+            <abp-column size="_3">
+                <abp-input asp-for="GunSayisiFilterMin" label="@L["MinGunSayisi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="GunSayisiFilterMax" label="@L["MaxGunSayisi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="BolumBaskaniAdiSoyadiFilter" label="@L["BolumBaskaniAdiSoyadi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciAdiSoyadiFilter" label="@L["OgrenciAdiSoyadi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciNoFilter" label="@L["OgrenciNo"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciBolumuFilter" label="@L["OgrenciBolumu"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciOgretimYiliFilter" label="@L["OgrenciOgretimYili"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciTelefonNoFilter" label="@L["OgrenciTelefonNo"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciEpostaFilter" label="@L["OgrenciEposta"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciAdresiFilter" label="@L["OgrenciAdresi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="KurulusAdiFilter" label="@L["KurulusAdi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="KurulusTelefonNoFilter" label="@L["KurulusTelefonNo"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="KurulusAdresiFilter" label="@L["KurulusAdresi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="StajYeriYetkilisiAdiSoyadiFilter" label="@L["StajYeriYetkilisiAdiSoyadi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="StajYeriYetkilisiGorevVeUnvaniFilter" label="@L["StajYeriYetkilisiGorevVeUnvani"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="StajYeriYetkilisiEpostaAdresiFilter" label="@L["StajYeriYetkilisiEpostaAdresi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="StajYeriYetkilisiOnayTarihiFilterMin" label="@L["MinStajYeriYetkilisiOnayTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="StajYeriYetkilisiOnayTarihiFilterMax" label="@L["MaxStajYeriYetkilisiOnayTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="OgrenciStajBaslamaTarihiFilterMin" label="@L["MinOgrenciStajBaslamaTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="OgrenciStajBaslamaTarihiFilterMax" label="@L["MaxOgrenciStajBaslamaTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="OgrenciStajBitisTarihiFilterMin" label="@L["MinOgrenciStajBitisTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="OgrenciStajBitisTarihiFilterMax" label="@L["MaxOgrenciStajBitisTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciAdiFilter" label="@L["OgrenciAdi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciSoyadiFilter" label="@L["OgrenciSoyadi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciTcKimlikNoFilter" label="@L["OgrenciTcKimlikNo"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciSskNoFilter" label="@L["OgrenciSskNo"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciBabaAdiFilter" label="@L["OgrenciBabaAdi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciAnaAdiFilter" label="@L["OgrenciAnaAdi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-input asp-for="OgrenciDogumYeriFilter" label="@L["OgrenciDogumYeri"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="OgrenciDogumTarihiFilterMin" label="@L["MinOgrenciDogumTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="OgrenciDogumTarihiFilterMax" label="@L["MaxOgrenciDogumTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-select asp-for="OgrenciSaglikGuvencesiFilter" label="@L["OgrenciSaglikGuvencesi"].Value" />
+            </abp-column>
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="BolumStajKomisyonuBaskanOnayiTarihiFilterMin" label="@L["MinBolumStajKomisyonuBaskanOnayiTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="BolumStajKomisyonuBaskanOnayiTarihiFilterMax" label="@L["MaxBolumStajKomisyonuBaskanOnayiTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="DekanlikOnayTarihiFilterMin" label="@L["MinDekanlikOnayTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="DekanlikOnayTarihiFilterMax" label="@L["MaxDekanlikOnayTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="SksDaireBaskanligiOnayTarihiFilterMin" label="@L["MinSksDaireBaskanligiOnayTarihi"].Value" />
+            </abp-column>
+
+            <abp-column size="_3">
+                <abp-date-picker auto-update-input="false" today-button-classes="btn-primary" asp-for="SksDaireBaskanligiOnayTarihiFilterMax" label="@L["MaxSksDaireBaskanligiOnayTarihi"].Value" />
+            </abp-column>
+
+        </abp-row>*@
+
+
+        <abp-table striped-rows="true" id="OgrenciStajBasvurususTable" style=" white-space: nowrap;">
+            <thead>
+				<tr>
+
+
+
+                    <th>@L["Durum"]</th>
+                    <th>@L["Gün Sayısı"]</th>
+                    <th>@L["Bölüm Başkanı Adı Soyadı"]</th>
+                    <th>@L["Öğrenci Adı Soyadı"]</th>
+                    <th>@L["Öğrenci No"]</th>
+                    <th>@L["Öğrenci Bölümü"]</th>
+                    <th>@L["Öğrenci Öğretim Yılı"]</th>
+                    <th>@L["Öğrenci Telefon No"]</th>
+                    <th>@L["Öğrenci Eposta"]</th>
+                    <th>@L["Öğrenci Adresi"]</th>
+                    <th>@L["Kurum/Kuruluş Adı"]</th>
+                    <th>@L["Kurum/Kuruluş Telefon No"]</th>
+                    <th>@L["Kurum/Kuruluş Adresi"]</th>
+                    <th>@L["Staj Yeri Yetkilisi Adı Soyadı"]</th>
+                    <th>@L["Staj Yeri Yetkilisi Görev ve Ünvanı"]</th>
+                    <th>@L["Staj Yeri Yetkilisi Eposta Adresi"]</th>
+                    <th>@L["Staj Yeri Yetkilisi Onay Tarihi"]</th>
+                    <th>@L["Öğrenci Staj Başlama Tarihi"]</th>
+                    <th>@L["Öğrenci Staj Bitiş Tarihi"]</th>
+                    <th>@L["Öğrenci Adı"]</th>
+                    <th>@L["Öğrenci Soyadı"]</th>
+                    <th>@L["Öğrenci TC Kimlik No"]</th>
+                    <th>@L["Öğrensi SSK No"]</th>
+                    <th>@L["Öğrenci Baba Adı"]</th>
+                    <th>@L["Öğrenci Ana Adı"]</th>
+                    <th>@L["Öğrenci Doğum Yeri"]</th>
+                    <th>@L["Öğrenci Doğum Tarihi"]</th>
+                    <th>@L["Öğrenci Sağlık Güvencesi"]</th>
+                    <th>@L["Bölüm Staj Komisyonu Baskan Onayı Tarihi"]</th>
+                    <th>@L["Dekanlık Onay Tarihi"]</th>
+                    <th>@L["SKS Daire Başkanlığı Onay Tarihi"]</th>
+
+
+
+				</tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>
+
